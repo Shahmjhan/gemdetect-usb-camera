@@ -1,0 +1,56 @@
+ name: Build Android APK with Native USB Camera     
+
+  on:
+    push:
+      branches: [ main, develop ]
+    pull_request:
+      branches: [ main ]
+    workflow_dispatch:
+
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: mobile-app/package-lock.json
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3       
+
+      - name: Install dependencies
+        working-directory: ./mobile-app
+        run: npm install
+
+      - name: Setup Expo and EAS
+        working-directory: ./mobile-app
+        run: |
+          npm install -g @expo/cli eas-cli
+          npx expo install --fix
+
+      - name: Build Android APK
+        working-directory: ./mobile-app
+        run: |
+          npx eas build --platform android --profile development --non-interactive --wait
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}      
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-development-apk
+          path: mobile-app/android/app/build/outputs/apk/debug/
+          retention-days: 30
