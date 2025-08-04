@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- USB Video Class (UVC) devices - most USB cameras and microscopes -->
+    <usb-device class="14" subclass="1" protocol="0" />
+    <usb-device class="14" subclass="2" protocol="0" />
+    
+    <!-- Generic USB camera devices -->
+    <usb-device vendor-id="1133" product-id="0x0001" /> <!-- Logitech -->
+    <usb-device vendor-id="0x046d" /> <!-- Logitech USB cameras -->
+    <usb-device vendor-id="0x05e3" /> <!-- Genesys Logic USB cameras -->
+    <usb-device vendor-id="0x1908" /> <!-- GEMBIRD -->
+    <usb-device vendor-id="0x18ec" /> <!-- Arkmicro Technologies Inc. -->
+    <usb-device vendor-id="0x2833" /> <!-- Oculus VR -->
+    
+    <!-- Common USB microscope manufacturers -->
+    <usb-device vendor-id="0x0547" /> <!-- Anchor Chips Inc. -->
+    <usb-device vendor-id="0x05e3" /> <!-- Genesys Logic USB hubs/cameras -->
+    <usb-device vendor-id="0x1f3a" /> <!-- Onda (CoolStream) -->
+    <usb-device vendor-id="0x0c45" /> <!-- Microdia -->
+    
+    <!-- Generic UVC device filter for any USB Video Class device -->
+    <usb-device class="14" />
+</resources>
